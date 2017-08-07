@@ -6,14 +6,13 @@
     <!-- Bootstrap and CSS here-->
     <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet' type='text/css' href='styles.css'>
-
   </head>
   <body>
 
       <div id='app' class='container center'>
 
         <div id='headers'>
-          <h1 id='title' data-bind="text: title" />
+          <h1 id='title'    data-bind="text: title" />
           <h3 id='subtitle' data-bind="text: subtitle" />
         </div>
 
@@ -27,6 +26,7 @@
               autofocus=autofocus
               data-bind="textInput: guess, enterkey: turn"
             />
+
             <button
               class='btn btn-success'
               id='submit'
@@ -46,7 +46,7 @@
           </script>
 
           <div id="menu-btns">
-            <button class='btn btn-large btn-warning'  data-bind='click: reset'>Reset</button>
+            <button class='btn btn-large btn-warning' data-bind='click: reset'>Reset</button>
             <button class='btn btn-large btn-info' data-bind='click: hint'>Hint</button>
           </div>
         </div>
@@ -54,22 +54,16 @@
 
     <div id='footer' class='center'>
         <div class='row'>
-          <div class='col-sm-4'>
-            <img src='fa-logo@2x.png'></img>
-          </div>
-
-          <div class='col-sm-4'>
-            <h4>Project by Amal Sudama</h4>
-          </div>
-
-          <div class='col-sm-4'>
-            <img src='grace_hopper_academy.png'></img>
-          </div>
+          <div class='col-sm-4'><img src='fa-logo@2x.png'></img></div>
+          <div class='col-sm-4'><h4>Project by Amal Sudama</h4></div>
+          <div class='col-sm-4'><img src='grace_hopper_academy.png'></img></div>
         </div>
     </div>
+
     <script src="./lib/jquery.js"></script>
     <script src="./lib/knockout-3.4.2.js"></script>
     <script src="./GuessingGame.js"></script>
     <script src="./GuessingGameController.js"></script>
+
   </body>
 </html>
