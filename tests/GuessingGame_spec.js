@@ -47,13 +47,12 @@ describe("Game class", function() {
         game = new Game();
     });
 
-    it('should have playersGuess, pastGuesses, and over properties', function() {
+    it('should have playersGuess and pastGuesses properties', function() {
         //playersGuess property is what will hold the player's number guess
         //pastGuesses will be an array, and holds all of the player's past guesses
         expect(game.playersGuess).toEqual(null);
         expect(Array.isArray(game.pastGuesses)).toEqual(true);
         expect(game.pastGuesses.length).toEqual(0);
-        expect(game.over).toEqual(false);
     });
 
     it('should have a winningNumber property, which calls generateWinningNumber', function() {
@@ -122,10 +121,9 @@ describe("Game class", function() {
                 expect(typeof result).toEqual('symbol');
 
             });
-            it('returns "You Win!" and sets over to true if playersGuess equals winningNumber', function() {
+            it('returns "You Win!" if playersGuess equals winningNumber', function() {
                 game.winningNumber = 42;
                 expect(game.playersGuessSubmission(42)).toEqual(sWin);
-                expect(game.over).toEqual(true);
             });
             it('returns "You have already guessed that number." if playersGuess is in pastGuesses', function() {
                 game.winningNumber = 42;
@@ -137,14 +135,13 @@ describe("Game class", function() {
                 game.playersGuessSubmission(36);
                 expect(game.pastGuesses.indexOf(36)).toBeGreaterThan(-1);
             })
-            it('returns "You Lose" and sets over if this is the players 5th guess', function() {
+            it('returns "You Lose" if this is the players 5th guess', function() {
                 game.winningNumber = 42;
                 game.playersGuessSubmission(1);
                 game.playersGuessSubmission(2);
                 game.playersGuessSubmission(3);
                 game.playersGuessSubmission(4);
                 expect(game.playersGuessSubmission(5)).toEqual(sLose);
-                expect(game.over).toEqual(true);
 
             });
             it('returns "You\'re burning up!" if the difference between playersGuess and winningGuess is less than 10', function() {
