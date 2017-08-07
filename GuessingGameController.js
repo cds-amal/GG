@@ -23,6 +23,7 @@ function AppViewModel() {
     this.subtitle = ko.observable(ResourceString[sPrompt]);
     this.guess    = ko.observable("");
     this.guesses  = ko.observable(blankGuesses());
+    this.gameOver = ko.observable(false);
 
     this.reset = function() {
       game = new Game();
@@ -40,19 +41,26 @@ function AppViewModel() {
     this.turn = function() {
 
       // invoke game to determine state.
-      let res = game.playersGuessSubmission(+this.guess());
+      let res;
+      try {
+        res = game.playersGuessSubmission(+this.guess());
+      } catch (e) {
+        this.subtitle(ResourceString[e]);
+        return;
+      }
 
       // clear input and update past guesses
       this.guess("");
       let n  = game.pastGuesses.length
-      ,   gs = this.guesses()
+      ,   gs = this.guesses();
       gs[n-1] = game.pastGuesses[n-1];
       this.guesses(gs);
 
       // Game over?
       if (res === sWin || res === sLose) {
-        this.title(ResourceString[res])
-        this.subtitle(ResourceString[sPlayAgain])
+        this.title(ResourceString[res]);
+        this.subtitle(ResourceString[sPlayAgain]);
+        this.gameOver(true);
         return;
       }
 

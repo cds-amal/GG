@@ -24,13 +24,13 @@
               placeholder="#"
               maxlength='3'
               autofocus=autofocus
-              data-bind="textInput: guess, enterkey: turn"
+              data-bind="textInput: guess, enterkey: turn, disable: gameOver"
             />
 
             <button
               class='btn btn-success'
               id='submit'
-              data-bind='click: turn'
+              data-bind='click: turn, disable: gameOver'
             >
               Go!
             </button>
@@ -46,8 +46,8 @@
           </script>
 
           <div id="menu-btns">
-            <button class='btn btn-large btn-warning' data-bind='click: reset'>Reset</button>
-            <button class='btn btn-large btn-info' data-bind='click: hint'>Hint</button>
+            <button class='btn btn-large btn-warning' data-bind='click: reset, disable: gameOver'>Reset</button>
+            <button class='btn btn-large btn-info' data-bind='click: hint, disable: gameOver'>Hint</button>
           </div>
         </div>
       </div>
