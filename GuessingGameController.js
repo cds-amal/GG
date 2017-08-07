@@ -1,64 +1,59 @@
-function handleTurn(game) {
-  let input    = $('#player-input')
-  ,   guess    = +input.val()
-  ,   feedback = game.playersGuessSubmission(guess)
-  ,   prompt   = ''
-  ,   cssKlass = null
-  ;
+let game = new Game();
 
-  cssKlass = feedback === ResourceString[sBurn]     ? 'burn'
-           : feedback === ResourceString[sIceCold]  ? 'ice-cold'
-           : feedback === ResourceString[sLukewarm] ? 'lukewarm'
-           : null;
-  // render input & guesses.
-  input.val('');
+ko.bindingHandlers.enterkey = {
+    init: function (element, valueAccessor, allBindings, viewModel) {
+        var callback = valueAccessor();
+        $(element).keypress(function (event) {
+            var keyCode = (event.which ? event.which : event.keyCode);
+            if (keyCode === 13) { // Enter
+                callback.call(viewModel);
+                return false;
+            }
+            return true;
+        });
+    }
+};
 
-  game.pastGuesses.forEach((g, i) => {
-    let el = $(`ul#guess-list li:nth-child(${i+1})`);
-    el.text(g);
-    if (game.pastGuesses.length-1 === i && cssKlass) el.addClass(cssKlass);
-  });
+const blankGuesses = () => '-'.repeat(5).split('');
 
-  if (feedback === ResourceString[sGuessAgain]) {
-    $('h3').text(feedback);
-    $('h1').text("Guess Again!");
-  } else if (feedback === ResourceString[sWin] ||
-             feedback === ResourceString[sLose]) {
-    $('input').prop( "disabled", true );
-    $('#submit').prop( "disabled", true );
-    $('#hint').prop( "disabled", true );
-    $('h1').text(feedback);
-    $('h3').text("Play Again?");
-  } else {
-    prompt = game.isLower() ? 'higher' : 'lower';
-    prompt = `${feedback} Try ${prompt}.`
-    $('h3').text(prompt);
-  }
+function AppViewModel() {
+    this.title    = ko.observable(ResourceString[sPlay]);
+    this.subtitle = ko.observable(ResourceString[sPrompt]);
+    this.guess    = ko.observable("");
+    this.guesses  = ko.observable(blankGuesses());
+    this.reset    = function() {
+      game = new Game();
+      this.title(ResourceString[sPlay]);
+      this.subtitle(ResourceString[sPrompt]);
+      this.guesses(blankGuesses());
+      this.guess('');
+    }
+
+    this.turn     = function() {
+      let res = game.playersGuessSubmission(+this.guess());
+
+      this.guess("");
+      let n  = game.pastGuesses.length
+      ,   gs = this.guesses()
+      gs[n-1] = game.pastGuesses[n-1];
+      this.guesses(gs);
+
+      if (res === sWin || res === sLose) {
+        this.title(ResourceString[res])
+        this.subtitle(ResourceString[sPlayAgain])
+        return;
+      }
+
+      if (res === sGuessAgain) {
+        this.subtitle(ResourceString[res]);
+        return;
+      }
+
+      let subtitle =  game.isLower() ? 'Go higher.' : 'Go lower.'
+      this.subtitle(subtitle);
+      this.title(ResourceString[res]);
+    };
 }
 
-$(document).ready(function() {
-  let game = new Game();
-
-  $('#reset').on('click', function(event){
-    $('#player-input').val('');
-    game.pastGuesses.forEach((_, i) => {
-      let el = $(`ul#guess-list li:nth-child(${i+1})`);
-      el.text('-').removeClass('ice-cold lukewarm burn');
-    });
-    game = new Game();
-    $('h3').text(ResourceString[sPrompt]);
-    $('input').prop( "disabled", false );
-    $('#submit').prop( "disabled", false );
-    $('#hint').prop( "disabled", false );
-  });
-
-  $('#submit').on('click', function(event){
-    handleTurn(game);
-  });
-
-  $('#player-input').on('keypress', function(event) {
-    if (event.key === 'Enter') {
-      handleTurn(game);
-    }
-  });
-});
+const state = new AppViewModel();
+ko.applyBindings(state);

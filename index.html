@@ -13,29 +13,41 @@
       <div id='app' class='container center'>
 
         <div id='headers'>
-          <h1 id='title'>Play the Guessing Game!</h1>
-          <h3 id='subtitle'>Guess a number between 1-100!</h3>
+          <h1 id='title' data-bind="text: title" />
+          <h3 id='subtitle' data-bind="text: subtitle" />
         </div>
 
         <div id='main'>
           <div id='input-parent'>
-            <input id='player-input' class='center' placeholder="#" maxlength='3' autofocus=autofocus></input>
-            <button class='btn btn-success' id='submit'>Go!</button>
+            <input
+              id='player-input'
+              class='center'
+              placeholder="#"
+              maxlength='3'
+              autofocus=autofocus
+              data-bind="textInput: guess, enterkey: turn"
+            />
+            <button
+              class='btn btn-success'
+              id='submit'
+              data-bind='click: turn'
+            >
+              Go!
+            </button>
           </div>
 
           <div id='guesses'>
-            <ul id='guess-list'>
-              <li class='guess'>-</li>
-              <li class='guess'>-</li>
-              <li class='guess'>-</li>
-              <li class='guess'>-</li>
-              <li class='guess'>-</li>
-            </ul>
+            <ul data-bind="template: { name: 'history',
+                                       foreach: guesses,
+                                       as: 'guess' }" />
           </div>
+          <script id="history" type="text/html">
+            <li class='guess' data-bind="text: guess" />
+          </script>
 
           <div id="menu-btns">
-            <button class='btn btn-large btn-warning center' id='reset'>Reset</button>
-            <button class='btn btn-large btn-info center' id='hint'>Hint</button>
+            <button class='btn btn-large btn-warning'  data-bind='click: reset'>Reset</button>
+            <button class='btn btn-large btn-info' data-bind='click: hint'>Hint</button>
           </div>
         </div>
       </div>
@@ -56,6 +68,7 @@
         </div>
     </div>
     <script src="./lib/jquery.js"></script>
+    <script src="./lib/knockout-3.4.2.js"></script>
     <script src="./GuessingGame.js"></script>
     <script src="./GuessingGameController.js"></script>
   </body>

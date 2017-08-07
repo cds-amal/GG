@@ -6,7 +6,9 @@ const sBurn       = Symbol('Burning up')
 ,     sWin        = Symbol('Win')
 ,     sGuessAgain = Symbol('GuessAgain')
 ,     sInvalid    = Symbol('Invalid')
+,     sPlay       = Symbol('PlayTheGuessingGame')
 ,     sPrompt     = Symbol('Prompt')
+,     sPlayAgain  = Symbol('PlayAgain')
 
 const ResourceString = {
   [sBurn      ] : "You're burning up!",
@@ -17,7 +19,9 @@ const ResourceString = {
   [sLose      ] : "You Lose.",
   [sInvalid   ] : "That is an invalid guess.",
   [sGuessAgain] : "You have already guessed that number.",
-  [sPrompt    ] : "Guess a number between 1-100!"
+  [sPlay      ] : "Play the Guessing Game!",
+  [sPrompt    ] : "Guess a number between 1-100!",
+  [sPlayAgain ] : "Play again?"
 }
 
 function generateWinningNumber() {
