@@ -41,7 +41,6 @@ function Game() {
   this.playersGuess  = null;
   this.pastGuesses   = [];
   this.winningNumber = generateWinningNumber();
-  this.over          = false;
 }
 
 Game.prototype.difference = function() {
@@ -69,12 +68,11 @@ Game.prototype.checkGuess = function() {
        : offset < 50    ? sChilly
        : sIceCold
        ;
-  this.over = (msg === sWin || msg === sLose);
-  return ResourceString[msg]
+  return msg;
 }
 
 Game.prototype.playersGuessSubmission = function(guess) {
-  if (isNaN(guess) || guess < 1 || guess > 100) throw (ResourceString[sInvalid]);
+  if (isNaN(guess) || guess < 1 || guess > 100) throw (sInvalid);
   this.playersGuess = guess;
   return this.checkGuess();
 }

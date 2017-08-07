@@ -6,8 +6,8 @@ function handleTurn(game) {
   ,   cssKlass = null
   ;
 
-  cssKlass = feedback === ResourceString[sBurn] ? 'burn'
-           : feedback === ResourceString[sIceCold] ? 'ice-cold'
+  cssKlass = feedback === ResourceString[sBurn]     ? 'burn'
+           : feedback === ResourceString[sIceCold]  ? 'ice-cold'
            : feedback === ResourceString[sLukewarm] ? 'lukewarm'
            : null;
   // render input & guesses.

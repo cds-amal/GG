@@ -94,16 +94,16 @@ describe("Game class", function() {
             it('throws an error if the number is invalid (less than 1, greater than 100, or not a number)', function() {
                 expect(function() {
                     game.playersGuessSubmission(0);
-                }).toThrow("That is an invalid guess.");
+                }).toThrow(sInvalid);
                 expect(function() {
                     game.playersGuessSubmission(-1);
-                }).toThrow("That is an invalid guess.");
+                }).toThrow(sInvalid);
                 expect(function() {
                     game.playersGuessSubmission(101);
-                }).toThrow("That is an invalid guess.");
+                }).toThrow(sInvalid);
                 expect(function() {
                     game.playersGuessSubmission("not a number");
-                }).toThrow("That is an invalid guess.");
+                }).toThrow(sInvalid);
             })
             it('calls checkGuess', function() {
                 spyOn(Game.prototype, 'checkGuess');
@@ -114,23 +114,23 @@ describe("Game class", function() {
         })
 
         describe("checkGuess function", function() {
-            it('returns a string', function() {
+            it('returns a symbol', function() {
                 //The last spec specifies that playersGuessSubmission should call checkGuess
                 //playersGuessSubmission should also return that call, so that the return value
                 //of playersGuessSubmissions is the return value of checkGuess.
                 var result = game.playersGuessSubmission(42);
-                expect(typeof result).toEqual('string');
+                expect(typeof result).toEqual('symbol');
 
             });
             it('returns "You Win!" and sets over to true if playersGuess equals winningNumber', function() {
                 game.winningNumber = 42;
-                expect(game.playersGuessSubmission(42)).toEqual('You Win!');
+                expect(game.playersGuessSubmission(42)).toEqual(sWin);
                 expect(game.over).toEqual(true);
             });
             it('returns "You have already guessed that number." if playersGuess is in pastGuesses', function() {
                 game.winningNumber = 42;
                 game.playersGuessSubmission(36);
-                expect(game.playersGuessSubmission(36)).toEqual('You have already guessed that number.');
+                expect(game.playersGuessSubmission(36)).toEqual(sGuessAgain);
             })
             it('if playersGuess isn\'t the winningNumber or a duplicate, add it to pastGuesses', function() {
                 game.winningNumber = 42;
@@ -143,25 +143,25 @@ describe("Game class", function() {
                 game.playersGuessSubmission(2);
                 game.playersGuessSubmission(3);
                 game.playersGuessSubmission(4);
-                expect(game.playersGuessSubmission(5)).toEqual('You Lose.');
+                expect(game.playersGuessSubmission(5)).toEqual(sLose);
                 expect(game.over).toEqual(true);
 
             });
             it('returns "You\'re burning up!" if the difference between playersGuess and winningGuess is less than 10', function() {
                 game.winningNumber = 42;
-                expect(game.playersGuessSubmission(45)).toEqual('You\'re burning up!');
+                expect(game.playersGuessSubmission(45)).toEqual(sBurn);
             });
             it('returns "You\'re lukewarm." if the difference between playersGuess and winningGuess is less than 25', function() {
                 game.winningNumber = 42;
-                expect(game.playersGuessSubmission(62)).toEqual('You\'re lukewarm.');
+                expect(game.playersGuessSubmission(62)).toEqual(sLukewarm);
             });
             it('returns "You\'re a bit chilly." if the difference between playersGuess and winningGuess is less than 50', function() {
                 game.winningNumber = 42;
-                expect(game.playersGuessSubmission(72)).toEqual('You\'re a bit chilly.');
+                expect(game.playersGuessSubmission(72)).toEqual(sChilly);
             });
             it('returns "You\'re ice cold!" if the difference between playersGuess and winningGuess is less than 100', function() {
                 game.winningNumber = 42;
-                expect(game.playersGuessSubmission(92)).toEqual('You\'re ice cold!');
+                expect(game.playersGuessSubmission(92)).toEqual(sIceCold);
             });
 
         })
