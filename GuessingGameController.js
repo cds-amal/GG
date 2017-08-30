@@ -34,23 +34,25 @@ function AppViewModel() {
     }
 
     this.hint = function() {
-      //todo
-      console.log('hint not implemented.');
+      return game.isLower() ? 'Go higher.' : 'Go lower.'
     }
 
     this.turn = function() {
 
+      let guess = +this.guess();
+     
+      // clear input and update past guesses
+      this.guess("");
+
       // invoke game to determine state.
       let res;
       try {
-        res = game.playersGuessSubmission(+this.guess());
+        res = game.playersGuessSubmission(guess);
       } catch (e) {
         this.subtitle(ResourceString[e]);
         return;
       }
 
-      // clear input and update past guesses
-      this.guess("");
       let n  = game.pastGuesses.length
       ,   gs = this.guesses();
       gs[n-1] = game.pastGuesses[n-1];
@@ -71,7 +73,7 @@ function AppViewModel() {
       }
 
       // Update rest of visual components.
-      let subtitle =  game.isLower() ? 'Go higher.' : 'Go lower.'
+      let subtitle =  this.hint();
       this.subtitle(subtitle);
       this.title(ResourceString[res]);
     };
