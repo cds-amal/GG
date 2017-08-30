@@ -1,29 +1,3 @@
-const sBurn       = Symbol('Burning up')
-,     sLukewarm   = Symbol('Lukewarm')
-,     sChilly     = Symbol('Chilly')
-,     sIceCold    = Symbol('IceCold')
-,     sLose       = Symbol('Lose')
-,     sWin        = Symbol('Win')
-,     sGuessAgain = Symbol('GuessAgain')
-,     sInvalid    = Symbol('Invalid')
-,     sPlay       = Symbol('PlayTheGuessingGame')
-,     sPrompt     = Symbol('Prompt')
-,     sPlayAgain  = Symbol('PlayAgain')
-
-const ResourceString = {
-  [sBurn      ] : "You're burning up!",
-  [sLukewarm  ] : "You're lukewarm.",
-  [sChilly    ] : "You're a bit chilly.",
-  [sIceCold   ] : "You're ice cold!",
-  [sWin       ] : "You Win!",
-  [sLose      ] : "You Lose.",
-  [sInvalid   ] : "That is an invalid guess.",
-  [sGuessAgain] : "You have already guessed that number.",
-  [sPlay      ] : "Play the Guessing Game!",
-  [sPrompt    ] : "Guess a number between 1-100!",
-  [sPlayAgain ] : "Play again?"
-}
-
 function generateWinningNumber() {
   return Math.floor(Math.random() * 100 + 1);
 }
@@ -65,7 +39,7 @@ Game.prototype.checkGuess = function() {
   nGuesses = this.pastGuesses.length;
 
   let msg = !offset     ? sWin
-       : nGuesses === 5 ? sLose
+       : nGuesses === GUESSES ? sLose
        : dupGuess       ? sGuessAgain
        : offset < 10    ? sBurn
        : offset < 25    ? sLukewarm
