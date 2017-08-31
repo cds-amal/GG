@@ -24,7 +24,7 @@
               placeholder="#"
               maxlength='3'
               autofocus=autofocus
-              data-bind="textInput: guess, enterkey: turn"
+              data-bind="textInput: guess, enterkey: turn, disable: gameOver()"
             />
 
             <button
