@@ -50,6 +50,22 @@ img {
     left: 110px;
 }
 
+#reset {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 110px;
+  left: -15px;
+}
+
+#play-again {
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  position: relative;
+  margin-top: -180px;
+}
 #input-parent {
     width: 160px;
     margin: 5% auto 50px;

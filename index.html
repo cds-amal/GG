@@ -28,12 +28,29 @@
             />
 
             <button
+              class='btn btn-danger'
+              id='reset'
+              data-bind='click: reset, visible: !gameOver()'
+              >
+              reset!
+            </button>
+
+            <button
               class='btn btn-success'
               id='submit'
-              data-bind='click: turn, disable: gameOver'
+              data-bind='click: turn, visible: !gameOver()'
             >
               Go!
             </button>
+
+            <button
+              class='btn btn-success'
+              id='play-again'
+              data-bind='click: reset, visible: gameOver()'
+            >
+              AGAIN?
+            </button>
+
           </div>
 
           <div id='guesses'>
@@ -45,10 +62,6 @@
             <li class='guess' data-bind="text: guess" />
           </script>
 
-          <div id="menu-btns">
-            <button class='btn btn-large btn-warning' data-bind='click: reset, disable: gameOver'>Reset</button>
-            <button class='btn btn-large btn-info' data-bind='click: hint, disable: gameOver'>Hint</button>
-          </div>
         </div>
       </div>
 

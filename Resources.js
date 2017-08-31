@@ -8,7 +8,7 @@ const sBurn       = Symbol('Burning up')
   ,     sInvalid    = Symbol('Invalid')
   ,     sPlay       = Symbol('PlayTheGuessingGame')
   ,     sPrompt     = Symbol('Prompt')
-  ,     sPlayAgain  = Symbol('PlayAgain')
+  ,     sLuckNext   = Symbol('BetterLuckNextTime')
 
 const ResourceString = {
   [sBurn      ] : "You're burning up!",
@@ -16,12 +16,12 @@ const ResourceString = {
   [sChilly    ] : "You're a bit chilly.",
   [sIceCold   ] : "You're ice cold!",
   [sWin       ] : "You Win!",
-  [sLose      ] : "You Lose.",
+  [sLose      ] : "Oh noes! You Lose.",
   [sInvalid   ] : "That is an invalid guess.",
   [sGuessAgain] : "You have already guessed that number.",
   [sPlay      ] : "Guess Seven!",
-  [sPrompt    ] : "7 chances to be a winner!",
-  [sPlayAgain ] : "Play again?"
+  [sPrompt    ] : "Good Luck!",
+  [sLuckNext  ] : "Better luck next time."
 }
 
 const GUESSES = 7;

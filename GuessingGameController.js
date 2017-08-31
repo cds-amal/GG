@@ -31,6 +31,9 @@ function AppViewModel() {
       this.subtitle(ResourceString[sPrompt]);
       this.guesses(blankGuesses());
       this.guess('');
+      this.gameOver(false);
+      // force focus to player-input
+      document.getElementById("player-input").focus();
     }
 
     this.hint = function() {
@@ -38,10 +41,10 @@ function AppViewModel() {
     }
 
     this.turn = function() {
-
-      let guess = +this.guess();
+      document.getElementById("player-input").focus();
      
-      // clear input and update past guesses
+      // retrieve guess and clear input 
+      let guess = +this.guess();
       this.guess("");
 
       // invoke game to determine state.
@@ -53,7 +56,7 @@ function AppViewModel() {
         return;
       }
 
-      // update guesses
+      // update previous guesses
       let n  = game.pastGuesses.length
       ,   gs = this.guesses();
       gs[n-1] = game.pastGuesses[n-1];
@@ -62,7 +65,7 @@ function AppViewModel() {
       // Game over?
       if (gameState === sWin || gameState === sLose) {
         this.title(ResourceString[gameState]);
-        this.subtitle(ResourceString[sPlayAgain]);
+        this.subtitle(ResourceString[sLuckNext]);
         this.gameOver(true);
         return;
       }
