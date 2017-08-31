@@ -24,13 +24,13 @@
               placeholder="#"
               maxlength='3'
               autofocus=autofocus
-              data-bind="textInput: guess, enterkey: turn, disable: gameOver"
+              data-bind="textInput: guess, enterkey: turn"
             />
 
             <button
               class='btn btn-danger'
               id='reset'
-              data-bind='click: reset, visible: !gameOver()'
+              data-bind='click: reset, visible: gameIsDirty()' 
               >
               reset!
             </button>

@@ -15,7 +15,7 @@ ko.bindingHandlers.enterkey = {
     }
 };
 
-const blankGuesses = () => '-'.repeat(5).split('');
+const blankGuesses = () => '-'.repeat(MAX_GUESSES).split('');
 
 function AppViewModel() {
     // observables enables 2-way binding.
@@ -24,6 +24,7 @@ function AppViewModel() {
     this.guess    = ko.observable("");
     this.guesses  = ko.observable(blankGuesses());
     this.gameOver = ko.observable(false);
+    this.gameIsDirty = ko.observable(false);
 
     this.reset = function() {
       game = new Game();
@@ -32,18 +33,20 @@ function AppViewModel() {
       this.guesses(blankGuesses());
       this.guess('');
       this.gameOver(false);
+      this.gameIsDirty(false);
       // force focus to player-input
       document.getElementById("player-input").focus();
     }
 
     this.hint = function() {
-      return game.isLower() ? 'Go higher.' : 'Go lower.'
+      let hint = game.isLower() ? sHintHigh : sHintLow;
+      return  ResourceString[hint]
     }
 
     this.turn = function() {
       document.getElementById("player-input").focus();
-     
-      // retrieve guess and clear input 
+
+      // retrieve guess and clear input
       let guess = +this.guess();
       this.guess("");
 
@@ -56,6 +59,8 @@ function AppViewModel() {
         return;
       }
 
+      this.gameIsDirty(true);
+
       // update previous guesses
       let n  = game.pastGuesses.length
       ,   gs = this.guesses();
@@ -67,6 +72,7 @@ function AppViewModel() {
         this.title(ResourceString[gameState]);
         this.subtitle(ResourceString[sLuckNext]);
         this.gameOver(true);
+        this.gameIsDirty(false);
         return;
       }
 

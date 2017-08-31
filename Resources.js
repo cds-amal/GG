@@ -9,6 +9,9 @@ const sBurn       = Symbol('Burning up')
   ,     sPlay       = Symbol('PlayTheGuessingGame')
   ,     sPrompt     = Symbol('Prompt')
   ,     sLuckNext   = Symbol('BetterLuckNextTime')
+  ,     sHintHigh   = Symbol('Hint Higher')
+  ,     sHintLow    = Symbol('Hint Lower')
+  ;
 
 const ResourceString = {
   [sBurn      ] : "You're burning up!",
@@ -21,8 +24,14 @@ const ResourceString = {
   [sGuessAgain] : "You have already guessed that number.",
   [sPlay      ] : "Guess Seven!",
   [sPrompt    ] : "Good Luck!",
-  [sLuckNext  ] : "Better luck next time."
+  [sLuckNext  ] : "Better luck next time.",
+  [sHintHigh  ] : "Go higher.",
+  [sHintLow   ] : "Go lower.",
 }
 
-const GUESSES = 7;
+const MAX_GUESSES    = 7
+,     BURN_RANGE     = 10
+,     LUKEWARM_RANGE = 25
+,     CHILLY_RANGE   = 50
+;
 

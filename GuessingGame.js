@@ -38,12 +38,12 @@ Game.prototype.checkGuess = function() {
   if (!dupGuess) this.pastGuesses.push(this.playersGuess);
   nGuesses = this.pastGuesses.length;
 
-  let msg = !offset     ? sWin
-       : nGuesses === GUESSES ? sLose
-       : dupGuess       ? sGuessAgain
-       : offset < 10    ? sBurn
-       : offset < 25    ? sLukewarm
-       : offset < 50    ? sChilly
+  let msg = !offset               ? sWin
+       : nGuesses === MAX_GUESSES ? sLose
+       : offset < BURN_RANGE      ? sBurn
+       : offset < LUKEWARM_RANGE  ? sLukewarm
+       : offset < CHILLY_RANGE    ? sChilly
+       : dupGuess                 ? sGuessAgain
        : sIceCold
        ;
   return msg;
