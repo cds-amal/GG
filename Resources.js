@@ -9,6 +9,7 @@ const sBurn       = Symbol('Burning up')
   ,     sPlay       = Symbol('PlayTheGuessingGame')
   ,     sPrompt     = Symbol('Prompt')
   ,     sLuckNext   = Symbol('BetterLuckNextTime')
+  ,     sGrats      = Symbol('Congratulations')
   ,     sHintHigh   = Symbol('Hint Higher')
   ,     sHintLow    = Symbol('Hint Lower')
   ;
@@ -25,6 +26,7 @@ const ResourceString = {
   [sPlay      ] : "Guess Seven!",
   [sPrompt    ] : "Good Luck!",
   [sLuckNext  ] : "Better luck next time.",
+  [sGrats     ] : "Contratulations!",
   [sHintHigh  ] : "Go higher.",
   [sHintLow   ] : "Go lower.",
 }

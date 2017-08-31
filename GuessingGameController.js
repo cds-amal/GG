@@ -71,6 +71,7 @@ function AppViewModel() {
       if (gameState === sWin || gameState === sLose) {
         this.title(ResourceString[gameState]);
         this.subtitle(ResourceString[sLuckNext]);
+        if (gameState === sWin ) this.subtitle(ResourceString[sGrats]);
         this.gameOver(true);
         this.gameIsDirty(false);
         return;
