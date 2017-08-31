@@ -45,37 +45,38 @@ function AppViewModel() {
       this.guess("");
 
       // invoke game to determine state.
-      let res;
+      let gameState;
       try {
-        res = game.playersGuessSubmission(guess);
+        gameState = game.playersGuessSubmission(guess);
       } catch (e) {
         this.subtitle(ResourceString[e]);
         return;
       }
 
+      // update guesses
       let n  = game.pastGuesses.length
       ,   gs = this.guesses();
       gs[n-1] = game.pastGuesses[n-1];
       this.guesses(gs);
 
       // Game over?
-      if (res === sWin || res === sLose) {
-        this.title(ResourceString[res]);
+      if (gameState === sWin || gameState === sLose) {
+        this.title(ResourceString[gameState]);
         this.subtitle(ResourceString[sPlayAgain]);
         this.gameOver(true);
         return;
       }
 
       // Validation concern from state
-      if (res === sGuessAgain) {
-        this.subtitle(ResourceString[res]);
+      if (gameState === sGuessAgain) {
+        this.subtitle(ResourceString[gameState]);
         return;
       }
 
       // Update rest of visual components.
       let subtitle =  this.hint();
       this.subtitle(subtitle);
-      this.title(ResourceString[res]);
+      this.title(ResourceString[gameState]);
     };
 }
 
